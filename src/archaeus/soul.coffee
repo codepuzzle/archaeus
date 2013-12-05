@@ -1,12 +1,10 @@
 class Soul
 
-  _attrs:
-    color: null
-
   constructor: (color) ->
     unless color
       throw new Error 'A Soul needs a valid color', color
-    @color color
+    @_attrs =
+      color: color
     @
 
   color: (color) ->

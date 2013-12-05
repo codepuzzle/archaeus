@@ -1,16 +1,18 @@
+Effects = require './effects'
+
 class Cell
 
   @BLANK_COLOR      = '#000000'
   @DEFAULT_POSITION = x: 0, y: 0
-
-  _attrs:
-    soul:     null
-    color:    null
-    position: null
+  @DEFAULT_EFFECT   = Effects.swapColors
 
   constructor: ->
-    @color    Cell.BLANK_COLOR
-    @position Cell.DEFAULT_POSITION
+    @_attrs =
+      soul:     null
+      color:    Cell.BLANK_COLOR
+      position: Cell.DEFAULT_POSITION
+
+    @effect Cell.DEFAULT_EFFECT
     @
 
   color: (color) ->
@@ -28,5 +30,15 @@ class Cell
       @_attrs.soul = soul
       @color soul.color()
     @_attrs.soul
+
+  effect: (effect) ->
+    if effect
+      @_effect = effect
+    @_effect
+
+  touch: (anotherCell) ->
+    effect = @effect()
+    effect @, anotherCell
+    @
 
 module.exports = Cell

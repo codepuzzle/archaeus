@@ -4,7 +4,7 @@
   "description": "collaborative drawing",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha --compilers coffee:coffee-script --require spec/spec_helper.coffee --colors -R spec spec/**/*_spec.*"
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --compilers coffee:coffee-script --require spec/spec_helper.coffee --colors --recursive -R spec spec"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,8 @@
   "gitHead": "60f023d13c1906bb6358ed2e72a3b3f6535291a8",
   "dependencies": {
     "coffee-script": "~1.6.3",
-    "color": "~0.5.0"
+    "color": "~0.5.0",
+    "underscore": "~1.5.2"
   },
   "devDependencies": {
     "mocha": "~1.15.1",
