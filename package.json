@@ -1,0 +1,34 @@
+{
+  "name": "archaeus",
+  "version": "0.0.0",
+  "description": "collaborative drawing",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --compilers coffee:coffee-script --require spec/spec_helper.coffee --colors -R spec spec/**/*_spec.*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codepuzzle/archaeus"
+  },
+  "keywords": [
+    "collaborative",
+    "drawing",
+    "nodejs",
+    "socket.io",
+    "websockets"
+  ],
+  "author": "Anton Mikulcic <anton@codepuzzle.de>",
+  "license": "GPL v2",
+  "readmeFilename": "README.md",
+  "gitHead": "60f023d13c1906bb6358ed2e72a3b3f6535291a8",
+  "dependencies": {
+    "coffee-script": "~1.6.3",
+    "color": "~0.5.0"
+  },
+  "devDependencies": {
+    "mocha": "~1.15.1",
+    "chai": "~1.8.1",
+    "sinon-chai": "~2.4.0",
+    "sinon": "~1.7.3"
+  }
+}
