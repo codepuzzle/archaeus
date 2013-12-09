@@ -6,8 +6,9 @@ class Cell
   @DEFAULT_POSITION = x: 0, y: 0
   @DEFAULT_EFFECT   = Effects.swapColors
 
-  constructor: ->
+  constructor: (grid) ->
     @_attrs =
+      grid:     grid
       soul:     null
       color:    Cell.BLANK_COLOR
       position: Cell.DEFAULT_POSITION
@@ -36,9 +37,16 @@ class Cell
       @_effect = effect
     @_effect
 
+  revive: ->
+    @grid().ablaze @
+    @
+
   touch: (anotherCell) ->
     effect = @effect()
     effect @, anotherCell
     @
+
+  grid: ->
+    @_attrs.grid
 
 module.exports = Cell
