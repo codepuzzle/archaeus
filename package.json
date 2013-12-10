@@ -24,7 +24,11 @@
   "dependencies": {
     "coffee-script": "~1.6.3",
     "color": "~0.5.0",
-    "underscore": "~1.5.2"
+    "underscore": "~1.5.2",
+    "jade": "~0.35.0",
+    "coffee-script-brunch": "~1.7.3",
+    "uglify-js-brunch": "~1.7.4",
+    "auto-reload-brunch": "~1.7.1"
   },
   "devDependencies": {
     "mocha": "~1.15.1",
