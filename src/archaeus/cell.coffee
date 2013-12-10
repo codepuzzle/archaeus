@@ -19,6 +19,7 @@ class Cell
   color: (color) ->
     if color
       @_attrs.color = color
+      @trigger 'change:color'
     @_attrs.color
 
   soul: (soul) ->
@@ -43,5 +44,8 @@ class Cell
 
   grid: ->
     @_attrs.grid
+
+Backbone = require '../../vendor/backbone.view'
+_.extend Cell.prototype, Backbone.Events
 
 module.exports = Cell

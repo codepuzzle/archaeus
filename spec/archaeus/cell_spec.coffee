@@ -23,6 +23,14 @@ describe 'Cell', ->
   it 'should belong to a grid', ->
     expect(cell.grid()).to.equal grid
 
+  describe '#color', ->
+
+    it 'should trigger change:color', ->
+      spy = sinon.spy cell, 'trigger'
+      cell.color '#00ff00'
+      expect(cell.trigger).calledWith 'change:color'
+      spy.restore()
+
   describe 'having a soul', ->
 
     soul = null
