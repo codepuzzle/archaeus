@@ -13,3 +13,12 @@ results
 
 npm-debug.log
 node_modules
+
+/bower_components/
+
+/public.map
+/public/index.html
+/public/js/app.js
+/public/js/app.js.map
+/public/js/vendor.js
+/public/js/vendor.js.map

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Archaeus</title>
+    <style type="text/css">
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      .row {
+        margin: 0;
+        padding: 0;
+        line-height: 0;
+      }
+      .cell {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+        width: 9px;
+        height: 9px;
+        border-right: 1px solid black;
+        border-bottom: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='content'></div>
+    <script type="text/javascript" src="js/vendor.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script>
+      require('zepto');
+      Backbone = require('vendor/backbone.view');
+      Backbone.$ = $;
+
+      var init = function() {
+        Soul     = require('archaeus/soul');
+        Grid     = require('archaeus/grid');
+        GridView = require('app/views/grid_view');
+
+        //effect = require('archaeus/effects/mix_colors');
+        effect = require('archaeus/effects/rotate_colors');
+
+        $container = $(window)
+        height = $container.height()
+        width  = $container.width()
+
+        sizeX = height / 10;
+        sizeY = width  / 10;
+
+        Color = require('color');
+        r = Math.round(Math.random() * 255);
+        g = Math.round(Math.random() * 255);
+        b = Math.round(Math.random() * 255);
+        color = Color({r: r, g: g, b: b}).hexString();
+
+        soul = new Soul(color);
+        grid = new Grid({ sizeX: sizeX, sizeY: sizeY, effect: effect });
+
+        gridView = new GridView(soul, grid);
+      };
+
+      Zepto(init);
+    </script>
+  </body>
+</html>
