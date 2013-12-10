@@ -4,4 +4,4 @@ swapColors = (cell, anotherCell) ->
   cell.color anotherColor
   anotherCell.color color
 
-module.exports = swapColors: swapColors
+module.exports = swapColors

@@ -1,7 +1,7 @@
-describe 'Effects.swapColors', ->
+describe 'effects/swapColors', ->
 
-  Effects = require '../../../src/archaeus/effects'
-  Cell    = require '../../../src/archaeus/cell'
+  swapColors = require '../../../src/archaeus/effects/swap_colors'
+  Cell       = require '../../../src/archaeus/cell'
 
   cell        = null
   anotherCell = null
@@ -17,9 +17,9 @@ describe 'Effects.swapColors', ->
     anotherCell.color blue
 
   it 'should be a function', ->
-    expect(Effects.swapColors).to.be.a 'function'
+    expect(swapColors).to.be.a 'function'
 
   it 'should swap two cells colors', ->
-    Effects.swapColors cell, anotherCell
+    swapColors cell, anotherCell
     expect(cell.color()).to.equal blue
     expect(anotherCell.color()).to.equal red
