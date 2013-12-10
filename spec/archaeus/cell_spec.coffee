@@ -16,10 +16,6 @@ describe 'Cell', ->
     color = cell.color()
     expect(color).to.equal Cell.BLANK_COLOR
 
-  it 'should have a default position', ->
-    position = cell.position()
-    expect(position).to.equal Cell.DEFAULT_POSITION
-
   it 'should have a default touch effect', ->
     effect = cell.effect()
     expect(effect).to.equal Cell.DEFAULT_EFFECT

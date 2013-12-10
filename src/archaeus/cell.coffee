@@ -1,17 +1,17 @@
-Effects = require './effects'
+_               = require 'underscore'
+
+swapColorEffect = require './effects/swap_colors'
 
 class Cell
 
-  @BLANK_COLOR      = '#000000'
-  @DEFAULT_POSITION = x: 0, y: 0
-  @DEFAULT_EFFECT   = Effects.swapColors
+  @BLANK_COLOR      = '#0000ff'
+  @DEFAULT_EFFECT   = swapColorEffect
 
   constructor: (grid) ->
     @_attrs =
       grid:     grid
       soul:     null
       color:    Cell.BLANK_COLOR
-      position: Cell.DEFAULT_POSITION
 
     @effect Cell.DEFAULT_EFFECT
     @
@@ -20,11 +20,6 @@ class Cell
     if color
       @_attrs.color = color
     @_attrs.color
-
-  position: (position) ->
-    if position
-      @_attrs.position = position
-    @_attrs.position
 
   soul: (soul) ->
     if soul

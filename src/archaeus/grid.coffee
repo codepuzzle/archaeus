@@ -1,46 +1,71 @@
+_    = require 'underscore'
 Cell = require './cell'
 
 class Grid
 
-  constructor: (size) ->
+  constructor: (options) ->
     @_attrs = {}
-    @_attrs.size = size
+    @_attrs.size =
+      sizeX: options.sizeX
+      sizeY: options.sizeY
+    @_attrs.effect = options.effect
     @_initCells()
     @
 
   _initCells: ->
-    @_attrs.cells = []
+    @_attrs.cells =
+      data: []
+      positions: {}
+
     { sizeX, sizeY } = @size()
-    for x in [1..sizeX]
-      for y in [1..sizeY]
-        @_addCell x, y
+    for x in [0...sizeX]
+      row = []
+      @_attrs.cells.data.push row
+      for y in [0...sizeY]
+        @_addCellToRow row, x, y
     @
 
-  _addCell: (x, y) ->
+  _addCellToRow: (row, x, y) ->
     cell = new Cell @
-    cell.position x: x, y: y
-    @cells().push cell
+    cell.id = "#{x}-#{y}"
+
+    if effect = @effect()
+      cell.effect effect
+
+    row.push cell
+    @_attrs.cells.positions[cell.id] = x: x, y: y
     @
 
   size: ->
     @_attrs.size
 
-  cells: ->
-    @_attrs.cells
+  effect: ->
+    @_attrs.effect
+
+  cellRows: ->
+    @_attrs.cells.data
+
+  cellPositions: ->
+    @_attrs.cells.positions
+
+  cellPosition: (cell) ->
+    @_attrs.cells.positions[cell.id]
 
   cellAt: (x, y) ->
-    for cell in @cells()
-      pos = cell.position()
-      return cell if pos.x is x and pos.y is y
-    null
+    if row = @_attrs.cells.data[x]
+      cell = row[y]
+    else
+      null
 
   ablaze: (cellToAblaze) ->
-    ablazePos = cellToAblaze.position()
-    for cell in @cells()
-      pos = cell.position()
-      distanceX = Math.abs pos.x - ablazePos.x
-      distanceY = Math.abs pos.y - ablazePos.y
-      if cell isnt cellToAblaze and 1 >= distanceX and 1 >= distanceY
-        cell.touch()
+    ablazePos = @cellPosition cellToAblaze
+    for dx in [-1..1]
+      for dy in [-1..1]
+        x = ablazePos.x - dx
+        y = ablazePos.y - dy
+        cell = @cellAt x, y
+        if cell and cell isnt cellToAblaze
+          cell.touch cellToAblaze
+    @
 
 module.exports = Grid
