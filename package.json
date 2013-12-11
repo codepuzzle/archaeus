@@ -4,7 +4,11 @@
   "description": "collaborative drawing",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha --compilers coffee:coffee-script --require spec/spec_helper.coffee --colors --recursive -R spec spec"
+    "postinstall" : "bower install",
+    "postupdate" : "bower update",
+    "start": "brunch watch --server",
+    "pretest": "brunch build",
+    "test": "karma start"
   },
   "repository": {
     "type": "git",
@@ -34,6 +38,13 @@
     "mocha": "~1.15.1",
     "chai": "~1.8.1",
     "sinon-chai": "~2.4.0",
-    "sinon": "~1.7.3"
+    "sinon": "~1.7.3",
+    "karma": "~0.10.8",
+    "karma-mocha": "~0.1.1",
+    "karma-chrome-launcher": "~0.1.1",
+    "karma-coffee-preprocessor": "~0.1.1",
+    "karma-spec-reporter": "0.0.6",
+    "karma-commonjs-preprocessor": "~0.1.0",
+    "karma-sinon-chai": "~0.1.4"
   }
 }
