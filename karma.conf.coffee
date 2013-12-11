@@ -54,9 +54,9 @@ module.exports = (config) ->
 
     # Continuous Integration mode
     # if true, it capture browsers, run tests and exit
-    singleRun: false
-    coffeePreprocessor:
+    singleRun: true
 
+    coffeePreprocessor:
       # options passed to the coffee compiler
       options:
         bare: true

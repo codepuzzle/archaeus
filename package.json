@@ -4,7 +4,11 @@
   "description": "collaborative drawing",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha --compilers coffee:coffee-script --require spec/spec_helper.coffee --colors --recursive -R spec spec"
+    "postinstall" : "bower install",
+    "postupdate" : "bower update",
+    "start": "brunch watch --server",
+    "pretest": "brunch build",
+    "test": "karma start"
   },
   "repository": {
     "type": "git",
