@@ -74,6 +74,7 @@ describe 'Grid', ->
       expect(pos.y).to.equal 2
 
     it "should return an amount of #{sizeX * sizeY} cell positions", ->
+      _ = require 'underscore'
       positions = _.keys cellPositions
       expect(positions.length).to.equal sizeX * sizeY
 
