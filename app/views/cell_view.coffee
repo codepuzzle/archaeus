@@ -30,6 +30,10 @@ class CellView extends Backbone.View
     @
 
   applyCellColor: ->
-    @$el.css backgroundColor: @cell.color()
+    color = @cell.color()
+    @$el.css
+      backgroundColor: color
+      boxShadow: "0 0 15px #{color}"
+
 
 module.exports = CellView
