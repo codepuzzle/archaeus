@@ -34,9 +34,6 @@ exports.config =
 
   modules:
     nameCleaner: (path) ->
-      # make src folder files available without src/ prefix
-      path = path.replace /^src\//, ''
-
       # make index files available as e.g. require('effects')
       # instead of require('effects/index')
       path = path.replace /\/index\.(js|coffee)$/, ''
