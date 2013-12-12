@@ -14,11 +14,9 @@ class CellView extends Backbone.View
     @
 
   render: ->
-    x = @x
-    y = @y
-    @$el.attr 'id', "cell-#{x}-#{y}"
-    @$el.data 'x', x
-    @$el.data 'y', y
+    @$el.attr 'id', "cell-#{@cell.id}"
+    @$el.data 'x', @x
+    @$el.data 'y', @y
     @
 
   interact: ->
@@ -33,6 +31,5 @@ class CellView extends Backbone.View
     @$el.css
       backgroundColor: color
       boxShadow: "0 0 15px #{color}"
-
 
 module.exports = CellView
