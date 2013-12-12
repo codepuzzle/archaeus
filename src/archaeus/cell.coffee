@@ -23,7 +23,7 @@ class Cell
     @_attrs.color
 
   soul: (soul) ->
-    if soul
+    if soul and !@_attrs.soul
       @_attrs.soul = soul
       @color soul.color()
     @_attrs.soul

@@ -54,8 +54,7 @@ class GridView extends Backbone.View
     cellView = @_cellViews["#{x}-#{y}"]
     cell = cellView.cell
 
-    unless cell.soul()
-      cell.soul @soul
+    cell.soul @soul
     @
 
 module.exports = GridView

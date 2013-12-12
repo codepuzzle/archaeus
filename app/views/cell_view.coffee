@@ -25,8 +25,7 @@ class CellView extends Backbone.View
     x = @x
     y = @y
     grid = @cell.grid()
-    if @cell.soul()
-      grid.ablaze @cell
+    grid.ablaze @cell
     @
 
   applyCellColor: ->
