@@ -58,14 +58,15 @@ class Grid
       null
 
   ablaze: (cellToAblaze) ->
-    ablazePos = @cellPosition cellToAblaze
-    for dx in [-1..1]
-      for dy in [-1..1]
-        x = ablazePos.x - dx
-        y = ablazePos.y - dy
-        cell = @cellAt x, y
-        if cell and cell isnt cellToAblaze
-          cell.touch cellToAblaze
+    if cellToAblaze.soul()
+      ablazePos = @cellPosition cellToAblaze
+      for dx in [-1..1]
+        for dy in [-1..1]
+          x = ablazePos.x - dx
+          y = ablazePos.y - dy
+          cell = @cellAt x, y
+          if cell and cell isnt cellToAblaze
+            cell.touch cellToAblaze
     @
 
 module.exports = Grid

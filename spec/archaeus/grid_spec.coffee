@@ -86,15 +86,32 @@ describe 'Grid', ->
 
   describe '#ablaze', ->
 
-    it 'should touch all cells surrounding a given cell', ->
-      cell = grid.cellAt 1, 1
-      grid.ablaze cell
-      expect(Cell::touch).to.be.calledOn     grid.cellAt(0, 0)
-      expect(Cell::touch).to.be.calledOn     grid.cellAt(0, 1)
-      expect(Cell::touch).to.be.calledOn     grid.cellAt(0, 2)
-      expect(Cell::touch).to.be.calledOn     grid.cellAt(1, 0)
-      expect(Cell::touch).not.to.be.calledOn grid.cellAt(1, 1)
-      expect(Cell::touch).to.be.calledOn     grid.cellAt(1, 2)
-      expect(Cell::touch).to.be.calledOn     grid.cellAt(2, 0)
-      expect(Cell::touch).to.be.calledOn     grid.cellAt(2, 1)
-      expect(Cell::touch).to.be.calledOn     grid.cellAt(2, 2)
+    cell = null
+
+    describe 'given cell has no soul', ->
+
+      beforeEach ->
+        cellWithoutSoul = grid.cellAt 1, 1
+        grid.ablaze cellWithoutSoul
+
+      it 'should not touch any cell at all', ->
+        expect(Cell::touch).not.to.be.called
+
+    describe 'given cell has a soul', ->
+
+      beforeEach ->
+        soul = color: sinon.stub.returns('#ff0000')
+        cell = grid.cellAt 1, 1
+        cell.soul soul
+
+      it 'should touch all cells surrounding the given cell', ->
+        grid.ablaze cell
+        expect(Cell::touch).to.be.calledOn     grid.cellAt(0, 0)
+        expect(Cell::touch).to.be.calledOn     grid.cellAt(0, 1)
+        expect(Cell::touch).to.be.calledOn     grid.cellAt(0, 2)
+        expect(Cell::touch).to.be.calledOn     grid.cellAt(1, 0)
+        expect(Cell::touch).not.to.be.calledOn grid.cellAt(1, 1)
+        expect(Cell::touch).to.be.calledOn     grid.cellAt(1, 2)
+        expect(Cell::touch).to.be.calledOn     grid.cellAt(2, 0)
+        expect(Cell::touch).to.be.calledOn     grid.cellAt(2, 1)
+        expect(Cell::touch).to.be.calledOn     grid.cellAt(2, 2)

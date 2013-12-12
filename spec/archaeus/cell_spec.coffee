@@ -45,6 +45,11 @@ describe 'Cell', ->
     it 'should have the soul\'s color', ->
       expect(cell.color()).to.equal soul.color()
 
+    it 'should not set another soul', ->
+      anotherSoul = color: sinon.stub.returns '#0000ff'
+      cell.soul anotherSoul
+      expect(cell.soul()).to.equal soul
+
     describe 'on revive', ->
 
       it 'should ablaze the grid around the cell', ->

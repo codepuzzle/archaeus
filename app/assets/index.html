@@ -16,10 +16,8 @@
         display: inline-block;
         padding: 0;
         margin: 0;
-        width: 9px;
-        height: 9px;
-        border-right: 1px solid black;
-        border-bottom: 1px solid black;
+        width: 18px;
+        height: 18px;
       }
     </style>
   </head>
@@ -28,38 +26,33 @@
     <script type="text/javascript" src="js/vendor.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script>
+      var Soul     = require('src/archaeus/soul');
+      var Grid     = require('src/archaeus/grid');
+      var GridView = require('app/views/grid_view');
+
+      //effect = require('src/archaeus/effects/mix_colors');
+      var effect = require('src/archaeus/effects/rotate_colors');
+
+      var $container = $(window)
+      var height     = $container.height()
+      var width      = $container.width()
+
+      var sizeX = height / 18;
+      var sizeY = width  / 18;
+
+      var Color = require('color');
+      var r = Math.round(Math.random() * 255);
+      var g = Math.round(Math.random() * 255);
+      var b = Math.round(Math.random() * 255);
+      var color = Color({r: r, g: g, b: b}).hexString();
+
+      var soul = new Soul(color);
+      var grid = new Grid({ sizeX: sizeX, sizeY: sizeY, effect: effect });
+
+      var gridView = new GridView(soul, grid);
+
       require('zepto');
-      Backbone = require('vendor/backbone.view');
-      Backbone.$ = $;
-
-      var init = function() {
-        Soul     = require('src/archaeus/soul');
-        Grid     = require('src/archaeus/grid');
-        GridView = require('app/views/grid_view');
-
-        //effect = require('src/archaeus/effects/mix_colors');
-        effect = require('src/archaeus/effects/rotate_colors');
-
-        $container = $(window)
-        height = $container.height()
-        width  = $container.width()
-
-        sizeX = height / 10;
-        sizeY = width  / 10;
-
-        Color = require('color');
-        r = Math.round(Math.random() * 255);
-        g = Math.round(Math.random() * 255);
-        b = Math.round(Math.random() * 255);
-        color = Color({r: r, g: g, b: b}).hexString();
-
-        soul = new Soul(color);
-        grid = new Grid({ sizeX: sizeX, sizeY: sizeY, effect: effect });
-
-        gridView = new GridView(soul, grid);
-      };
-
-      Zepto(init);
+      $('#content').html(gridView.el);
     </script>
   </body>
 </html>
