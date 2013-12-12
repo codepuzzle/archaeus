@@ -4,10 +4,8 @@ CellView = require './cell_view'
 
 class GridView extends Backbone.View
 
-  el: '#content'
-
   events:
-    'mouseover .cell': 'setSoul'
+    'mouseover .cell': 'applySoul'
 
   initialize: (@soul, @grid) ->
     @_cellViews = {}
@@ -40,13 +38,7 @@ class GridView extends Backbone.View
     @_cellViews[key] = cellView
     @
 
-  _removeCellViews: ->
-    for key, view of @_cellViews
-      view.remove()
-      delete @_cellViews[key]
-    @
-
-  setSoul: (e) ->
+  applySoul: (e) ->
     $cellEl = $(e.srcElement)
     x = $cellEl.data 'x'
     y = $cellEl.data 'y'
@@ -55,6 +47,17 @@ class GridView extends Backbone.View
     cell = cellView.cell
 
     cell.soul @soul
+    @
+
+  remove: ->
+    @_removeCellViews()
+    Backbone.View::remove.call @
+    @
+
+  _removeCellViews: ->
+    for key, view of @_cellViews
+      view.remove()
+      delete @_cellViews[key]
     @
 
 module.exports = GridView

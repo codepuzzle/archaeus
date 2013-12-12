@@ -50,6 +50,9 @@
       var grid = new Grid({ sizeX: sizeX, sizeY: sizeY, effect: effect });
 
       var gridView = new GridView(soul, grid);
+
+      require('zepto');
+      $('#content').html(gridView.el);
     </script>
   </body>
 </html>
