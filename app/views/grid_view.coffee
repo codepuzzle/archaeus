@@ -1,4 +1,4 @@
-Backbone = require '../../vendor/backbone.view'
+Backbone = require '../../vendor/backbone/view'
 
 CellView = require './cell_view'
 

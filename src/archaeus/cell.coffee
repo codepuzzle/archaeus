@@ -45,7 +45,7 @@ class Cell
   grid: ->
     @_attrs.grid
 
-Backbone = require '../../vendor/backbone.view'
-_.extend Cell.prototype, Backbone.Events
+Events = require '../../vendor/backbone/events'
+_.extend Cell.prototype, Events
 
 module.exports = Cell

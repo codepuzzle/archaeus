@@ -1,4 +1,4 @@
-Backbone = require '../../vendor/backbone.view'
+Backbone = require '../../vendor/backbone/view'
 
 class CellView extends Backbone.View
 
