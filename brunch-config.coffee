@@ -19,7 +19,7 @@ exports.config =
     javascripts:
       joinTo:
         'js/app.js':    /^(src|app)/
-        'js/vendor.js': /^vendor|(bower_components\/(zepto|underscore|color|color-convert|color-convert\/conversions|color-string))/
+        'js/vendor.js': /^vendor\/.*|(bower_components\/(zepto|underscore|color|color-convert|color-convert\/conversions|color-string))/
       order:
         before: [
           'bower_components/zepto.js',

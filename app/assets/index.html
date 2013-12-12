@@ -26,38 +26,30 @@
     <script type="text/javascript" src="js/vendor.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script>
-      require('zepto');
-      Backbone = require('vendor/backbone.view');
-      Backbone.$ = $;
+      var Soul     = require('src/archaeus/soul');
+      var Grid     = require('src/archaeus/grid');
+      var GridView = require('app/views/grid_view');
 
-      var init = function() {
-        Soul     = require('src/archaeus/soul');
-        Grid     = require('src/archaeus/grid');
-        GridView = require('app/views/grid_view');
+      //effect = require('src/archaeus/effects/mix_colors');
+      var effect = require('src/archaeus/effects/rotate_colors');
 
-        //effect = require('src/archaeus/effects/mix_colors');
-        effect = require('src/archaeus/effects/rotate_colors');
+      var $container = $(window)
+      var height     = $container.height()
+      var width      = $container.width()
 
-        $container = $(window)
-        height = $container.height()
-        width  = $container.width()
+      var sizeX = height / 18;
+      var sizeY = width  / 18;
 
-        sizeX = height / 18;
-        sizeY = width  / 18;
+      var Color = require('color');
+      var r = Math.round(Math.random() * 255);
+      var g = Math.round(Math.random() * 255);
+      var b = Math.round(Math.random() * 255);
+      var color = Color({r: r, g: g, b: b}).hexString();
 
-        Color = require('color');
-        r = Math.round(Math.random() * 255);
-        g = Math.round(Math.random() * 255);
-        b = Math.round(Math.random() * 255);
-        color = Color({r: r, g: g, b: b}).hexString();
+      var soul = new Soul(color);
+      var grid = new Grid({ sizeX: sizeX, sizeY: sizeY, effect: effect });
 
-        soul = new Soul(color);
-        grid = new Grid({ sizeX: sizeX, sizeY: sizeY, effect: effect });
-
-        gridView = new GridView(soul, grid);
-      };
-
-      Zepto(init);
+      var gridView = new GridView(soul, grid);
     </script>
   </body>
 </html>
