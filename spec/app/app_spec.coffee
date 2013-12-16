@@ -2,8 +2,9 @@ describe 'App', ->
 
   app      = null
 
-  GridView = null
-  Grid     = null
+  GridView      = null
+  Grid          = null
+  SocketService = null
 
   before ->
     GridView = require '../../app/views/grid_view'
@@ -22,9 +23,10 @@ describe 'App', ->
     app = new App
 
   after ->
+    window.$.restore()
     GridView::render.restore()
     Grid::_initCells.restore()
-    window.$.restore()
+    SocketService::connect.restore()
 
   it 'should init a soul', ->
     Soul = require '../../src/archaeus/soul'
@@ -48,6 +50,10 @@ describe 'App', ->
         html: htmlSpy
 
     before ->
+      SocketService = require '../../app/services/socket_service'
+      sinon.stub SocketService.prototype, 'connect'
+
+    before ->
       app.run()
 
     it 'should init a grid view', ->
@@ -56,5 +62,17 @@ describe 'App', ->
     it 'should init $', ->
       expect($).to.be.defined
 
-    it 'should render the grid view html to the content', ->
-      expect(htmlSpy).to.be.calledWith app.gridView.el
+    it 'should init the socket service', ->
+      SocketService = require '../../app/services/socket_service'
+      expect(app.socketService).to.be.an.instanceof SocketService
+
+    it 'should not render until the socket service has connected', ->
+      expect(htmlSpy).not.to.be.called
+
+    describe 'on socket service connect', ->
+
+      before ->
+        SocketService::connect.yieldTo 'connect'
+
+      it 'should render the grid view html to the content', ->
+        expect(htmlSpy).to.be.calledWith app.gridView.el

@@ -1,7 +1,8 @@
 Soul     = require 'src/archaeus/soul'
 Grid     = require 'src/archaeus/grid'
 
-GridView = require 'app/views/grid_view'
+GridView      = require 'app/views/grid_view'
+SocketService = require 'app/services/socket_service'
 
 class App
 
@@ -46,7 +47,7 @@ class App
   run: ->
     @_initGridView()
     @_init$()
-    @_render()
+    @_initSocketService()
     @
 
   _initGridView: ->
@@ -57,7 +58,13 @@ class App
     require 'zepto'
     @
 
-  _render: ->
+  _initSocketService: ->
+    @socketService = new SocketService
+    @socketService.connect
+      connect: @_render
+    @
+
+  _render: =>
     $('#content').html @gridView.el
     @
 
