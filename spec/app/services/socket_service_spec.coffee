@@ -5,7 +5,9 @@ describe 'SocketService', ->
   callbacks     = null
 
   before ->
-    socketStub = sinon.stub().returns on: sinon.stub()
+    socketStub = sinon.stub().returns
+      on: sinon.stub()
+      emit: sinon.stub()
     io = require 'socket.io'
     sinon.stub io, 'connect', socketStub
 
@@ -34,3 +36,21 @@ describe 'SocketService', ->
       event    = 'connect'
       callback = callbacks[event]
       expect(registration).to.be.calledWith event, callback
+
+  describe '#on', ->
+
+    it 'should call the `on` method on the socket', ->
+      event    = 'foo'
+      callback = ->
+      socketService.on event, callback
+      expect(socketService.socket.on).to.be.calledWith event, callback
+      socketService.socket.on.reset()
+
+  describe '#emit', ->
+
+    it 'should call the `emit` method on the socket', ->
+      event    = 'foo'
+      callback = ->
+      socketService.emit event, callback
+      expect(socketService.socket.emit).to.be.calledWith event, callback
+      socketService.socket.emit.reset()

@@ -48,6 +48,8 @@ class App
     @_initGridView()
     @_init$()
     @_initSocketService()
+    @_registerOutgoingEvents()
+    @_registerIncomingEvents()
     @
 
   _initGridView: ->
@@ -67,5 +69,29 @@ class App
   _render: =>
     $('#content').html @gridView.el
     @
+
+  _registerOutgoingEvents: ->
+    self = @
+    for cell in @gridView.grid.cells()
+      self = @
+      handle = (data) ->
+        self.emitCellEvent cell unless data.silent
+      cell.on 'change:color', handle, cell
+    @
+
+  emitCellEvent: (cell) ->
+    pos = cell.id.split '-'
+    @socketService.emit 'cell:change',
+      color: cell.color()
+      x:     pos[0]
+      y:     pos[1]
+    @
+
+  _registerIncomingEvents: ->
+    @socketService.on 'cell:change', @handleCellEvent, @
+
+  handleCellEvent: (data) ->
+    cell = @gridView.grid.cellAt data.x, data.y
+    cell.color data.color, true
 
 module.exports = App

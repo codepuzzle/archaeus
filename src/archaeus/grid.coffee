@@ -57,6 +57,9 @@ class Grid
     else
       null
 
+  cells: ->
+    _.flatten @_attrs.cells.data
+
   ablaze: (cellToAblaze) ->
     if cellToAblaze.soul()
       ablazePos = @cellPosition cellToAblaze

@@ -48,4 +48,10 @@ class SocketService
       @socket.on event, callback
     @
 
+  on: (event, callback) ->
+    @socket.on event, callback
+
+  emit: (event, data) ->
+    @socket.emit event, data
+
 module.exports = SocketService

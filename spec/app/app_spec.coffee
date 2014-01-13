@@ -4,6 +4,7 @@ describe 'App', ->
 
   GridView      = null
   Grid          = null
+  Cell          = null
   SocketService = null
 
   before ->
@@ -12,7 +13,15 @@ describe 'App', ->
 
     Grid = require '../../src/archaeus/grid'
     sinon.stub Grid.prototype, '_initCells', ->
-      @_attrs.cells = data: [], positions: {}
+      cell      = new Cell @
+      cell.id   = "0-0"
+      rows      = [[ cell ]]
+      positions = { "0-0": x: 0, y: 0 }
+      @_attrs.cells = data: rows, positions: positions
+
+    Cell = require '../../src/archaeus/cell'
+    sinon.spy Cell.prototype, 'on'
+    sinon.spy Cell.prototype, 'color'
 
     sinon.stub window, '$'
     window.$.withArgs(window).returns
@@ -27,6 +36,8 @@ describe 'App', ->
     window.$.restore()
     GridView::render.restore()
     Grid::_initCells.restore()
+    Cell::on.restore()
+    Cell::color.restore()
     SocketService::connect.restore()
 
   it 'should init a soul', ->
@@ -53,10 +64,18 @@ describe 'App', ->
     before ->
       SocketService = require '../../app/services/socket_service'
       sinon.stub SocketService.prototype, 'connect', ->
-        @socket = on: ->
+        @socket =
+          on:   sinon.stub()
+          emit: sinon.stub()
+      sinon.spy SocketService.prototype, 'on'
+      sinon.spy SocketService.prototype, 'emit'
 
     before ->
       app.run()
+
+    after ->
+      app.socketService.on.restore()
+      app.socketService.emit.restore()
 
     it 'should init a grid view', ->
       expect(app.gridView).to.be.an.instanceof GridView
@@ -70,6 +89,13 @@ describe 'App', ->
     it 'should not render until the socket service has connected', ->
       expect(htmlSpy).not.to.be.called
 
+    it 'should register incoming cell:change events on the socket service', ->
+      expect(app.socketService.on).to.be.calledWith 'cell:change'
+
+    it 'should register outgoing change:color events for all grid cells on the socket service', ->
+      numberOfCells = app.grid.cells().length
+      expect(Cell.prototype.on.callCount).to.equal numberOfCells
+
     describe 'on socket service connect', ->
 
       before ->
@@ -77,3 +103,22 @@ describe 'App', ->
 
       it 'should render the grid view html to the content', ->
         expect(htmlSpy).to.be.calledWith app.gridView.el
+
+    describe '#emitCellEvent', ->
+
+      it 'should emit the cell:change on the socket service', ->
+        cell = app.grid.cellAt 0, 0
+        app.emitCellEvent cell
+        expect(app.socketService.emit).calledWith 'cell:change', color: cell.color(), x: '0', y: '0'
+        app.socketService.emit.reset()
+
+    describe '#handleCellEvent', ->
+
+      it 'should pass the event params with silent to the cells color function', ->
+        x      = 0
+        y      = 0
+        color  = '#00ff00'
+        silent = true
+        cell   = app.grid.cellAt x, y
+        app.handleCellEvent color: color, x: x, y: y
+        expect(cell.color).to.be.calledWith color, silent
