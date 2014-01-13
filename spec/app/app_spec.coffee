@@ -12,6 +12,7 @@ describe 'App', ->
 
     Grid = require '../../src/archaeus/grid'
     sinon.stub Grid.prototype, '_initCells', ->
+      @_attrs.cells = data: [], positions: {}
 
     sinon.stub window, '$'
     window.$.withArgs(window).returns
@@ -51,7 +52,8 @@ describe 'App', ->
 
     before ->
       SocketService = require '../../app/services/socket_service'
-      sinon.stub SocketService.prototype, 'connect'
+      sinon.stub SocketService.prototype, 'connect', ->
+        @socket = on: ->
 
     before ->
       app.run()
@@ -63,7 +65,6 @@ describe 'App', ->
       expect($).to.be.defined
 
     it 'should init the socket service', ->
-      SocketService = require '../../app/services/socket_service'
       expect(app.socketService).to.be.an.instanceof SocketService
 
     it 'should not render until the socket service has connected', ->
