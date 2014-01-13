@@ -16,10 +16,10 @@ class Cell
     @effect Cell.DEFAULT_EFFECT
     @
 
-  color: (color) ->
+  color: (color, silent) ->
     if color
       @_attrs.color = color
-      @trigger 'change:color'
+      @trigger 'change:color', silent: silent
     @_attrs.color
 
   soul: (soul) ->

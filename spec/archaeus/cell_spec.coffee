@@ -25,11 +25,23 @@ describe 'Cell', ->
 
   describe '#color', ->
 
-    it 'should trigger change:color', ->
+    spy = null
+
+    beforeEach ->
       spy = sinon.spy cell, 'trigger'
+
+    afterEach ->
+      spy.restore()
+
+    it 'should trigger change:color', ->
       cell.color '#00ff00'
       expect(cell.trigger).calledWith 'change:color'
-      spy.restore()
+
+    describe 'given a silent flag', ->
+
+      it 'should pass the silent flag to the trigger method', ->
+        cell.color '#00ff00', true
+        expect(cell.trigger).to.be.calledWith 'change:color', silent: true
 
   describe 'having a soul', ->
 
