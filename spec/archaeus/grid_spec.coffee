@@ -84,6 +84,13 @@ describe 'Grid', ->
       cell = grid.cellAt 2, 1
       expect(cell.id).to.equal '2-1'
 
+  describe '#cells', ->
+
+    it 'should return an array of cells', ->
+      cells        = grid.cells()
+      expectedCell = grid.cellAt 1, 1
+      expect(cells).to.include expectedCell
+
   describe '#ablaze', ->
 
     cell = null

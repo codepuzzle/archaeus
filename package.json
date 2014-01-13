@@ -4,8 +4,8 @@
   "description": "collaborative drawing",
   "main": "index.js",
   "scripts": {
-    "postinstall" : "bower install",
-    "postupdate" : "bower update",
+    "postinstall": "bower install",
+    "postupdate": "bower update",
     "start": "brunch watch --server",
     "pretest": "brunch build",
     "test": "karma start"
@@ -32,7 +32,8 @@
     "jade": "~0.35.0",
     "coffee-script-brunch": "~1.7.3",
     "uglify-js-brunch": "~1.7.4",
-    "auto-reload-brunch": "~1.7.1"
+    "auto-reload-brunch": "~1.7.1",
+    "socket.io": "~0.9.16"
   },
   "devDependencies": {
     "mocha": "~1.15.1",

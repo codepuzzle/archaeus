@@ -1,7 +1,8 @@
 Soul     = require 'src/archaeus/soul'
 Grid     = require 'src/archaeus/grid'
 
-GridView = require 'app/views/grid_view'
+GridView      = require 'app/views/grid_view'
+SocketService = require 'app/services/socket_service'
 
 class App
 
@@ -46,7 +47,9 @@ class App
   run: ->
     @_initGridView()
     @_init$()
-    @_render()
+    @_initSocketService()
+    @_registerOutgoingEvents()
+    @_registerIncomingEvents()
     @
 
   _initGridView: ->
@@ -57,8 +60,42 @@ class App
     require 'zepto'
     @
 
-  _render: ->
+  _initSocketService: ->
+    @socketService = new SocketService
+    @socketService.connect
+      connect: @_render
+    @
+
+  _render: =>
     $('#content').html @gridView.el
+    @
+
+  _registerOutgoingEvents: ->
+    self = @
+    for cell in @gridView.grid.cells()
+      self = @
+      handle = (data) ->
+        cell = @
+        self.emitCellEvent cell unless data.silent
+      cell.on 'change:color', handle, cell
+    @
+
+  emitCellEvent: (cell) ->
+    pos = cell.id.split '-'
+    @socketService.emit 'cell:change',
+      color: cell.color()
+      x:     pos[0]
+      y:     pos[1]
+    @
+
+  _registerIncomingEvents: ->
+    @socketService.on 'cell:change', @handleCellEvent, @
+    @
+
+  handleCellEvent: (data) =>
+    cell = @gridView.grid.cellAt data.x, data.y
+    if cell
+      cell.color data.color, true
     @
 
 module.exports = App
