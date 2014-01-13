@@ -75,6 +75,7 @@ class App
     for cell in @gridView.grid.cells()
       self = @
       handle = (data) ->
+        cell = @
         self.emitCellEvent cell unless data.silent
       cell.on 'change:color', handle, cell
     @
@@ -89,9 +90,12 @@ class App
 
   _registerIncomingEvents: ->
     @socketService.on 'cell:change', @handleCellEvent, @
+    @
 
-  handleCellEvent: (data) ->
+  handleCellEvent: (data) =>
     cell = @gridView.grid.cellAt data.x, data.y
-    cell.color data.color, true
+    if cell
+      cell.color data.color, true
+    @
 
 module.exports = App
