@@ -59,20 +59,46 @@ describe 'Cell', ->
       it 'should apply the given soul', ->
         expect(cell.soul()).to.equal soul
 
-      it 'should have the soul\'s color', ->
+      it 'should apply the soul\'s color', ->
         expect(cell.color()).to.equal soul.color()
+
+      describe 'given a `silent` parameter is provided', ->
+
+        spy = null
+
+        beforeEach ->
+          spy = sinon.spy cell, 'color'
+
+        afterEach ->
+          spy.restore()
+
+        it 'should apply the soul\'s color silently', ->
+          silent = true
+          cell.revive soul, silent
+          expect(spy).to.be.calledWith soul.color(), silent
 
     describe 'already having a soul', ->
 
-      existingSoul = null
+      describe 'that equals the reviving soul', ->
 
-      beforeEach ->
-        existingSoul = color: sinon.stub().returns '#00ffff'
-        cell._attrs.soul = existingSoul
-        cell.revive soul
+        beforeEach ->
+          cell._attrs.soul = soul
+          cell.revive soul
 
-      it 'should ablaze the grid around the cell', ->
-        expect(grid.ablaze).to.have.been.calledWith cell
+        it 'should apply the soul\'s color', ->
+          expect(cell.color()).to.equal soul.color()
+
+      describe 'that does not equal the reviving soul', ->
+
+        existingSoul = null
+
+        beforeEach ->
+          existingSoul = color: sinon.stub().returns '#00ffff'
+          cell._attrs.soul = existingSoul
+          cell.revive soul
+
+        it 'should ablaze the grid around the cell', ->
+          expect(grid.ablaze).to.have.been.calledWith cell
 
   describe 'on getting in touch with another cell', ->
 

@@ -1,6 +1,6 @@
 Color = require 'color'
 
-rotateColors = (cell, anotherCell) ->
+rotateColors = (cell, anotherCell, silent) ->
   color        = Color cell.color()
   anotherColor = Color anotherCell.color()
 
@@ -9,7 +9,7 @@ rotateColors = (cell, anotherCell) ->
   newColor          = color.rotate(rotation).hexString()
   newAlternateColor = anotherColor.rotate(rotation).hexString()
 
-  cell.color newColor
-  anotherCell.color newAlternateColor
+  cell.color newColor, silent
+  anotherCell.color newAlternateColor, silent
 
 module.exports = rotateColors

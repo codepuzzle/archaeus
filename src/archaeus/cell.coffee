@@ -30,21 +30,22 @@ class Cell
       @_effect = effect
     @_effect
 
-  revive: (soul) ->
-    if @soul()
-      @grid().ablaze @
+  revive: (soul, silent) ->
+    currentSoul = @soul()
+    if currentSoul and currentSoul isnt soul
+      @grid().ablaze @, silent
     else
-      @_applySoul soul
+      @_applySoul soul, silent
     @
 
-  _applySoul: (soul) ->
+  _applySoul: (soul, silent) ->
     @_attrs.soul = soul
-    @color soul.color()
+    @color soul.color(), silent
     @
 
-  touch: (anotherCell) ->
+  touch: (anotherCell, silent) ->
     effect = @effect()
-    effect @, anotherCell
+    effect @, anotherCell, silent
     @
 
   grid: ->
