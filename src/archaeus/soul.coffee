@@ -20,4 +20,10 @@ class Soul
       @_attrs.color = color
     @_attrs.color
 
+  asJSON: ->
+    obj =
+      id:    @id()
+      color: @color()
+    obj
+
 module.exports = Soul

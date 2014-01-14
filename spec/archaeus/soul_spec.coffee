@@ -22,3 +22,10 @@ describe 'Soul', ->
     expect(-> new Soul     ).to.throw(Error)
     expect(-> new Soul {}  ).to.throw(Error)
     expect(-> new Soul null).to.throw(Error)
+
+  describe '#asJSON', ->
+
+    it 'should return a JSON-ready Object of attributes', ->
+      s = soul.asJSON()
+      expect(s.id   ).to.equal soul.id()
+      expect(s.color).to.equal soul.color()
