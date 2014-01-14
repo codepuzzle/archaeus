@@ -10,7 +10,7 @@ class Server
 
   _initHttpServer: ->
     @server = require("http").createServer()
-    @server.listen 8080
+    @server.listen process.env.PORT or 5000
     @
 
   _initSocketIO: ->

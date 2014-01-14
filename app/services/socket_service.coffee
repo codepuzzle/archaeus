@@ -9,7 +9,7 @@ class SocketService
 
   _setupConnection: ->
     socket = io.connect "#{location.protocol}//#{location.hostname}",
-      'port':                      8080 #location.port
+      'port':                      5000 #location.port
       'reconnection delay':        100
       'reconnection limit':        2000
       'max reconnection attempts': 100

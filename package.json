@@ -4,15 +4,16 @@
   "description": "collaborative drawing",
   "main": "index.js",
   "scripts": {
-    "postinstall": "bower install",
-    "postupdate": "bower update",
-    "start": "brunch watch --server",
+    "start": "coffee server/server.coffee",
     "pretest": "brunch build",
     "test": "karma start"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/codepuzzle/archaeus"
+  },
+  "bugs": {
+    "url": "https://github.com/codepuzzle/archaeus/issues"
   },
   "keywords": [
     "collaborative",
@@ -25,6 +26,9 @@
   "license": "GPL v2",
   "readmeFilename": "README.md",
   "gitHead": "60f023d13c1906bb6358ed2e72a3b3f6535291a8",
+  "engines": {
+    "node": ">=0.8.16"
+  },
   "dependencies": {
     "coffee-script": "~1.6.3",
     "color": "~0.5.0",

@@ -1,11 +1,11 @@
-setup:
-	npm install
+install:
+	bower install
 
-start:
-	npm start
+run:
+	brunch watch --server
 
 server:
-	coffee server/server.coffee
+	npm start
 
 build:
 	brunch build --production
