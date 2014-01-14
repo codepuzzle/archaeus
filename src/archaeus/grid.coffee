@@ -60,7 +60,7 @@ class Grid
   cells: ->
     _.flatten @_attrs.cells.data
 
-  ablaze: (cellToAblaze) ->
+  ablaze: (cellToAblaze, silent) ->
     if cellToAblaze.soul()
       ablazePos = @cellPosition cellToAblaze
       for dx in [-1..1]
@@ -69,7 +69,7 @@ class Grid
           y = ablazePos.y - dy
           cell = @cellAt x, y
           if cell and cell isnt cellToAblaze
-            cell.touch cellToAblaze
+            cell.touch cellToAblaze, silent
     @
 
 module.exports = Grid

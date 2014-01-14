@@ -7,6 +7,7 @@ SocketService = require 'app/services/socket_service'
 class App
 
   constructor: ->
+    @souls = {}
     @_initSoul()
     @_initGrid()
     @
@@ -17,8 +18,16 @@ class App
     g = Math.round Math.random() * 255
     b = Math.round Math.random() * 255
     color = Color(r: r, g: g, b: b).hexString()
-    @soul = new Soul color
+    @soul = @_rememberSoul color: color
     @
+
+  _rememberSoul: (data) ->
+    if data?.id and soul = @souls[data.id]
+      soul
+    else
+      soul = new Soul data
+      @souls[soul.id()] = soul
+      soul
 
   _initGrid: ->
     { sizeX, sizeY } = @gridSize()
@@ -74,18 +83,20 @@ class App
     self = @
     for cell in @gridView.grid.cells()
       self = @
-      handle = (data) ->
+      cell.on 'change:color', (data) ->
         cell = @
         self.emitCellEvent cell unless data.silent
-      cell.on 'change:color', handle, cell
     @
 
   emitCellEvent: (cell) ->
     pos = cell.id.split '-'
-    @socketService.emit 'cell:change',
+    data =
       color: cell.color()
       x:     pos[0]
       y:     pos[1]
+    if soul = cell.soul()
+      data.soul = soul.asJSON()
+    @socketService.emit 'cell:change', data
     @
 
   _registerIncomingEvents: ->
@@ -95,6 +106,9 @@ class App
   handleCellEvent: (data) =>
     cell = @gridView.grid.cellAt data.x, data.y
     if cell
+      if data.soul
+        soul = @_rememberSoul data.soul
+        cell.revive soul, true
       cell.color data.color, true
     @
 

@@ -23,3 +23,9 @@ describe 'effects/swapColors', ->
     swapColors cell, anotherCell
     expect(cell.color()).to.equal blue
     expect(anotherCell.color()).to.equal red
+
+  it 'should pass the `silent` parameter if provided', ->
+    sinon.spy cell, 'color'
+    silent = true
+    swapColors cell, anotherCell, silent
+    expect(cell.color).to.be.calledWith blue, silent

@@ -43,46 +43,78 @@ describe 'Cell', ->
         cell.color '#00ff00', true
         expect(cell.trigger).to.be.calledWith 'change:color', silent: true
 
-  describe 'having a soul', ->
+  describe 'on revive', ->
 
     soul = null
 
     beforeEach ->
       soul = color: sinon.stub().returns '#ff0000'
-      cell.soul soul
 
-    it 'should have a soul', ->
-      expect(cell.soul()).to.equal soul
-
-    it 'should have the soul\'s color', ->
-      expect(cell.color()).to.equal soul.color()
-
-    it 'should not set another soul', ->
-      anotherSoul = color: sinon.stub.returns '#0000ff'
-      cell.soul anotherSoul
-      expect(cell.soul()).to.equal soul
-
-    describe 'on revive', ->
-
-      it 'should ablaze the grid around the cell', ->
-        cell.revive()
-        expect(grid.ablaze).to.have.been.calledWith cell
-
-    describe 'and getting in touch with another cell', ->
-
-      anotherCell = null
-      effectSpy   = null
+    describe 'having no soul yet', ->
 
       beforeEach ->
-        effectSpy   = sinon.spy()
-        sinon.stub cell, '_effect', effectSpy
-        anotherSoul = color: sinon.stub().returns '#ffff00'
-        anotherCell = new Cell
+        cell._attrs.soul = null
+        cell.revive soul
 
-      afterEach ->
-        effectSpy.reset()
-        cell._effect.restore()
+      it 'should apply the given soul', ->
+        expect(cell.soul()).to.equal soul
 
-      it 'should effect the cells somehow', ->
-        cell.touch anotherCell
-        expect(effectSpy).to.have.been.calledWith cell, anotherCell
+      it 'should apply the soul\'s color', ->
+        expect(cell.color()).to.equal soul.color()
+
+      describe 'given a `silent` parameter is provided', ->
+
+        spy = null
+
+        beforeEach ->
+          spy = sinon.spy cell, 'color'
+
+        afterEach ->
+          spy.restore()
+
+        it 'should apply the soul\'s color silently', ->
+          silent = true
+          cell.revive soul, silent
+          expect(spy).to.be.calledWith soul.color(), silent
+
+    describe 'already having a soul', ->
+
+      describe 'that equals the reviving soul', ->
+
+        beforeEach ->
+          cell._attrs.soul = soul
+          cell.revive soul
+
+        it 'should apply the soul\'s color', ->
+          expect(cell.color()).to.equal soul.color()
+
+      describe 'that does not equal the reviving soul', ->
+
+        existingSoul = null
+
+        beforeEach ->
+          existingSoul = color: sinon.stub().returns '#00ffff'
+          cell._attrs.soul = existingSoul
+          cell.revive soul
+
+        it 'should ablaze the grid around the cell', ->
+          expect(grid.ablaze).to.have.been.calledWith cell
+
+  describe 'on getting in touch with another cell', ->
+
+    anotherCell = null
+    effectSpy   = null
+
+    beforeEach ->
+      effectSpy   = sinon.spy()
+      sinon.stub cell, '_effect', effectSpy
+      anotherSoul = color: sinon.stub().returns '#ffff00'
+      anotherCell = new Cell
+
+    afterEach ->
+      effectSpy.reset()
+      cell._effect.restore()
+
+    it 'should effect the cells somehow', ->
+      cell.touch anotherCell
+      expect(effectSpy).to.have.been.calledWith cell, anotherCell
