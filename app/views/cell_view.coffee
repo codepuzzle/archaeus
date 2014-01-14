@@ -20,10 +20,7 @@ class CellView extends Backbone.View
     @
 
   interact: ->
-    x = @x
-    y = @y
-    grid = @cell.grid()
-    grid.ablaze @cell
+    @cell.revive()
     @
 
   applyCellColor: ->

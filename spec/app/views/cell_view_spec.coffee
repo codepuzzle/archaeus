@@ -10,11 +10,13 @@ describe 'CellView', ->
     sinon.spy CellView.prototype, 'interact'
 
     Cell     = require '../../../src/archaeus/cell'
-    grid     = ablaze: sinon.stub()
+    sinon.stub Cell.prototype, 'revive', ->
+    grid     = {}
     cell     = new Cell grid
     cellView = new CellView cell, x, y
 
   after ->
+    cellView.cell.revive.restore()
     cellView.render.restore()
     cellView.interact.restore()
 
@@ -64,5 +66,5 @@ describe 'CellView', ->
       grid = cellView.cell.grid()
       cellView.interact()
 
-    it 'should set the grid around the cell ablaze', ->
-      expect(grid.ablaze).calledWith cellView.cell
+    it 'should revive the cell', ->
+      expect(cellView.cell.revive).to.be.called
