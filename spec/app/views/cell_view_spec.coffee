@@ -7,7 +7,6 @@ describe 'CellView', ->
   before ->
     CellView = require '../../../app/views/cell_view'
     sinon.spy CellView.prototype, 'render'
-    sinon.spy CellView.prototype, 'interact'
 
     Cell     = require '../../../src/archaeus/cell'
     sinon.stub Cell.prototype, 'revive', ->
@@ -18,15 +17,9 @@ describe 'CellView', ->
   after ->
     cellView.cell.revive.restore()
     cellView.render.restore()
-    cellView.interact.restore()
 
   it 'should render', ->
     expect(cellView.render).to.be.calledOnce
-
-  it 'should interact on mouse over element', ->
-    cellView.$el.trigger 'mouseover'
-    expect(cellView.interact).to.be.calledOnce
-    cellView.interact.reset()
 
   describe 'on cell color change', ->
 
@@ -57,14 +50,3 @@ describe 'CellView', ->
 
     it 'should set cell y position information as element data', ->
       expect($el.data('y')).to.equal y
-
-  describe '#interact', ->
-
-    grid = null
-
-    before ->
-      grid = cellView.cell.grid()
-      cellView.interact()
-
-    it 'should revive the cell', ->
-      expect(cellView.cell.revive).to.be.called

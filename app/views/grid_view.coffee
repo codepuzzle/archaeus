@@ -5,7 +5,7 @@ CellView = require './cell_view'
 class GridView extends Backbone.View
 
   events:
-    'mouseover .cell': 'applySoul'
+    'mouseover .cell': 'interact'
 
   initialize: (@soul, @grid) ->
     @_cellViews = {}
@@ -38,7 +38,7 @@ class GridView extends Backbone.View
     @_cellViews[key] = cellView
     @
 
-  applySoul: (e) ->
+  interact: (e) ->
     $cellEl = $(e.srcElement)
     x = $cellEl.data 'x'
     y = $cellEl.data 'y'
@@ -46,7 +46,7 @@ class GridView extends Backbone.View
     cellView = @_cellViews["#{x}-#{y}"]
     cell = cellView.cell
 
-    cell.soul @soul
+    cell.revive @soul
     @
 
   remove: ->

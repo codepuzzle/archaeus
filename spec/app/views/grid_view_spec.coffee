@@ -4,10 +4,15 @@ describe 'GridView', ->
   sizeX    = 3
   sizeY    = 3
 
+  Cell     = null
+
   before ->
     GridView = require '../../../app/views/grid_view'
     sinon.spy GridView.prototype, 'render'
-    sinon.spy GridView.prototype, 'applySoul'
+    sinon.spy GridView.prototype, 'interact'
+
+    Cell     = require '../../../src/archaeus/cell'
+    sinon.spy Cell.prototype, 'revive'
 
     Grid     = require '../../../src/archaeus/grid'
     soul     = color: sinon.stub()
@@ -16,8 +21,9 @@ describe 'GridView', ->
     gridView = new GridView soul, grid
 
   after ->
+    Cell::revive.restore()
     gridView.render.restore()
-    gridView.applySoul.restore()
+    gridView.interact.restore()
 
   it 'should render', ->
     expect(gridView.render).to.be.calledOnce
@@ -25,8 +31,8 @@ describe 'GridView', ->
   it.skip 'should apply the grid\'s soul on the cell on mouse over', ->
     $cell = gridView.$('.cell').first()
     $cell.trigger 'mouseover'
-    expect(gridView.applySoul).to.be.calledOnce
-    gridView.applySoul.reset()
+    expect(gridView.interact).to.be.calledOnce
+    gridView.interact.reset()
 
   describe '#render', ->
 
@@ -48,7 +54,7 @@ describe 'GridView', ->
       $cells = gridView.$('.cell')
       expect($cells.length).to.equal sizeX * sizeY
 
-  describe '#applySoul', ->
+  describe '#interact', ->
 
     x = 1
     y = 1
@@ -57,8 +63,8 @@ describe 'GridView', ->
       $row   = $(gridView.$('.row')[x])
       cellEl = $row.find('.cell')[y]
       event = srcElement: cellEl
-      gridView.applySoul event
+      gridView.interact event
 
-    it 'should apply the grid\'s soul on a cell', ->
+    it 'should revive the grid\'s cell by the soul', ->
       cell = gridView.grid.cellAt x, y
-      expect(cell.soul()).to.equal gridView.soul
+      expect(cell.revive).to.be.calledWith gridView.soul

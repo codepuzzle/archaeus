@@ -95,7 +95,7 @@ describe 'Grid', ->
 
     cell = null
 
-    describe 'given cell has no soul', ->
+    describe 'given cell was not yet revived', ->
 
       beforeEach ->
         cellWithoutSoul = grid.cellAt 1, 1
@@ -104,12 +104,12 @@ describe 'Grid', ->
       it 'should not touch any cell at all', ->
         expect(Cell::touch).not.to.be.called
 
-    describe 'given cell has a soul', ->
+    describe 'given cell was already revived', ->
 
       beforeEach ->
         soul = color: sinon.stub.returns('#ff0000')
         cell = grid.cellAt 1, 1
-        cell.soul soul
+        cell.revive soul
 
       it 'should touch all cells surrounding the given cell', ->
         grid.ablaze cell

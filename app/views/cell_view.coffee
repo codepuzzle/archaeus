@@ -5,9 +5,6 @@ class CellView extends Backbone.View
   tagName:   'span'
   className: 'cell'
 
-  events:
-    'mouseover': 'interact'
-
   initialize: (@cell, @x, @y) ->
     @listenTo @cell, 'change:color', @applyCellColor
     @render()
@@ -17,10 +14,6 @@ class CellView extends Backbone.View
     @$el.attr 'id', "cell-#{@cell.id}"
     @$el.data 'x', @x
     @$el.data 'y', @y
-    @
-
-  interact: ->
-    @cell.revive()
     @
 
   applyCellColor: ->

@@ -22,10 +22,7 @@ class Cell
       @trigger 'change:color', silent: silent
     @_attrs.color
 
-  soul: (soul) ->
-    if soul and !@_attrs.soul
-      @_attrs.soul = soul
-      @color soul.color()
+  soul: ->
     @_attrs.soul
 
   effect: (effect) ->
@@ -33,8 +30,16 @@ class Cell
       @_effect = effect
     @_effect
 
-  revive: ->
-    @grid().ablaze @
+  revive: (soul) ->
+    if @soul()
+      @grid().ablaze @
+    else
+      @_applySoul soul
+    @
+
+  _applySoul: (soul) ->
+    @_attrs.soul = soul
+    @color soul.color()
     @
 
   touch: (anotherCell) ->
