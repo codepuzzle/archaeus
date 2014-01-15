@@ -1,6 +1,9 @@
+path     = require 'path'
 socketIO = require 'socket.io'
 
 class Server
+
+  PUBLIC_FOLDER_PATH = path.resolve __dirname, '..', 'public'
 
   run: ->
     @_initHttpServer()
@@ -11,9 +14,10 @@ class Server
     express = require 'express'
 
     @app = express()
-    @app.use express.static "#{__dirname}/../public"
+    @app.use express.static PUBLIC_FOLDER_PATH
+
     @app.get "/", (req, res) ->
-      res.sendfile "#{__dirname}/../public/index.html"
+      res.sendfile path.resolve PUBLIC_FOLDER_PATH, 'index.html'
 
     @server = require("http").createServer @app
 
