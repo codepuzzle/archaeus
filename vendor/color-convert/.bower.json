@@ -1,0 +1,14 @@
+{
+  "name": "color-convert",
+  "homepage": "https://github.com/harthur/color-convert",
+  "_release": "76ec632621",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "76ec6326213f5987ec5feb038a42fbacadc98453"
+  },
+  "_source": "http://github.com/harthur/color-convert.git",
+  "_target": "*",
+  "_originalSource": "http://github.com/harthur/color-convert.git",
+  "_direct": true
+}
