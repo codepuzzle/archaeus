@@ -4,7 +4,8 @@
   "description": "collaborative drawing",
   "main": "index.js",
   "scripts": {
-    "postinstall": "bower install && brunch build --production",
+    "postinstall": "bower install",
+    "prestart": "brunch build --production",
     "start": "coffee server/server.coffee",
     "pretest": "brunch build",
     "test": "karma start"
