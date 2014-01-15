@@ -4,6 +4,7 @@
   "description": "collaborative drawing",
   "main": "index.js",
   "scripts": {
+    "postinstall": "brunch build --production",
     "start": "coffee server/server.coffee",
     "pretest": "brunch build",
     "test": "karma start"
@@ -38,7 +39,8 @@
     "uglify-js-brunch": "~1.7.4",
     "auto-reload-brunch": "~1.7.1",
     "socket.io": "~0.9.16",
-    "express": "~3.4.8"
+    "express": "~3.4.8",
+    "brunch": "~1.7.13"
   },
   "devDependencies": {
     "mocha": "~1.15.1",
