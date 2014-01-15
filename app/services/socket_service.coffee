@@ -8,8 +8,12 @@ class SocketService
     @
 
   _setupConnection: ->
-    socket = io.connect "#{location.protocol}//#{location.hostname}",
-      'port':                      5000 #location.port
+    DEFAULT_HOST    = "#{location.protocol}//#{location.hostname}"
+    PRODUCTION_HOST = location.origin.replace /^https?/, 'ws'
+    CLIENT_ENV      = 'test' if CLIENT_ENV is undefined
+    host = if 'production' is CLIENT_ENV then PRODUCTION_HOST else DEFAULT_HOST
+    socket = io.connect host,
+      'port':                      location.port
       'reconnection delay':        100
       'reconnection limit':        2000
       'max reconnection attempts': 100

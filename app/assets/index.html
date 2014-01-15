@@ -26,8 +26,9 @@
     <script type="text/javascript" src="js/vendor.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script>
-      App = require('app/app');
-      app = new App();
+      var CLIENT_ENV = /herokuapp/.test(location.hostname) ? 'production' : 'development';
+      var App = require('app/app');
+      var app = new App();
       app.run();
     </script>
   </body>

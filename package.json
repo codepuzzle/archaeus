@@ -37,7 +37,8 @@
     "coffee-script-brunch": "~1.7.3",
     "uglify-js-brunch": "~1.7.4",
     "auto-reload-brunch": "~1.7.1",
-    "socket.io": "~0.9.16"
+    "socket.io": "~0.9.16",
+    "express": "~3.4.8"
   },
   "devDependencies": {
     "mocha": "~1.15.1",
