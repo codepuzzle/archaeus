@@ -30,10 +30,46 @@ Archaeus is a Javascript implementation, written in Coffeescript – and proudly
   http://nodejs.org
 - *Socket.io* to handle realtime-communication
   http://socket.io
+- *Mocha.js* Test Framework
+  http://visionmedia.github.io/mocha
+- *Karma* Test runner
+  http://karma-runner.github.io
 
 Archaeus is happy to be running on http://Heroku.com
 
-## Caveats and known issues
+### Folder Description and Files
+
+```
+/archaeus
+  ├ /app                      - Application files
+  │ ├ /assets                 - Static assets
+  │ │ └ index.html            - The main HTML file
+  │ │
+  │ ├ /services               - Services
+  │ │ └ socket_service.coffee - WebSocket Adapter
+  │ │
+  │ ├ /views                  - Views
+  │ │ ├ cell_view.coffee      - Backbone Cell View
+  │ │ └ grid_view.coffee      - Backbone Grid View
+  │ │
+  │ └ app.coffee              - The main app file
+  │
+  ├ /server                   - Node.JS and Socket.IO Server
+  │ └ server.coffee           - Server runner file
+  │
+  ├ /spec                     - Specs and Tests
+  ├ /src                      - Domain Models
+  ├ /vendor                   - Unbundled vendor libraries
+  ├ /src                      - Domain Models
+  ├ Makefile                  - Setup and Run scripts
+  ├ README.md                 - This README
+  ├ package.json              - Project package description
+  ├ bower.json                - Frontend dependencies description
+  ├ brunch-config.coffee      - Build description
+  └ karma.conf.coffee         - Test runner description
+```
+
+### Caveats and known issues
 
 Archaeus is currently under development. The implementation is tested only in Chrome on Mac OS X so far.
 
