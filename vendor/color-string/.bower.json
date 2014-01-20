@@ -1,0 +1,14 @@
+{
+  "name": "color-string",
+  "homepage": "https://github.com/harthur/color-string",
+  "_release": "a196806da1",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "a196806da1327f832541ee798f7ec3f85839b11f"
+  },
+  "_source": "http://github.com/harthur/color-string.git",
+  "_target": "*",
+  "_originalSource": "http://github.com/harthur/color-string.git",
+  "_direct": true
+}

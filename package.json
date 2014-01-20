@@ -1,0 +1,60 @@
+{
+  "name": "archaeus",
+  "version": "0.1.0",
+  "description": "collaborative drawing",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "bower install",
+    "prestart": "brunch build --production",
+    "start": "coffee server/server.coffee",
+    "pretest": "brunch build",
+    "test": "karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codepuzzle/archaeus"
+  },
+  "bugs": {
+    "url": "https://github.com/codepuzzle/archaeus/issues"
+  },
+  "keywords": [
+    "collaborative",
+    "drawing",
+    "nodejs",
+    "socket.io",
+    "websockets"
+  ],
+  "author": "Anton Mikulcic <anton@codepuzzle.de>",
+  "license": "GPL v2",
+  "readmeFilename": "README.md",
+  "gitHead": "60f023d13c1906bb6358ed2e72a3b3f6535291a8",
+  "engines": {
+    "node": ">=0.8.16"
+  },
+  "dependencies": {
+    "coffee-script": "~1.6.3",
+    "color": "~0.5.0",
+    "underscore": "~1.5.2",
+    "jade": "~0.35.0",
+    "coffee-script-brunch": "~1.7.3",
+    "uglify-js-brunch": "~1.7.4",
+    "auto-reload-brunch": "~1.7.1",
+    "socket.io": "~0.9.16",
+    "express": "~3.4.8",
+    "brunch": "~1.7.13",
+    "bower": "~1.2.8"
+  },
+  "devDependencies": {
+    "mocha": "~1.15.1",
+    "chai": "~1.8.1",
+    "sinon-chai": "~2.4.0",
+    "sinon": "~1.7.3",
+    "karma": "~0.10.8",
+    "karma-mocha": "~0.1.1",
+    "karma-chrome-launcher": "~0.1.1",
+    "karma-coffee-preprocessor": "~0.1.1",
+    "karma-spec-reporter": "0.0.6",
+    "karma-commonjs-preprocessor": "~0.1.0",
+    "karma-sinon-chai": "~0.1.4"
+  }
+}

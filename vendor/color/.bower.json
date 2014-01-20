@@ -1,0 +1,14 @@
+{
+  "name": "color",
+  "homepage": "https://github.com/harthur/color",
+  "_release": "529eb1ca69",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "529eb1ca699a1c8cddc9987dccf37d9b24537879"
+  },
+  "_source": "http://github.com/harthur/color.git",
+  "_target": "*",
+  "_originalSource": "http://github.com/harthur/color.git",
+  "_direct": true
+}
