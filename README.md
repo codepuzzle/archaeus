@@ -35,38 +35,68 @@ Archaeus is a Javascript implementation, written in Coffeescript – and proudly
 - *Karma* Test runner
   http://karma-runner.github.io
 
-Archaeus is happy to be running on http://Heroku.com
+Archaeus is happy to be running on http://heroku.com
 
-### Folder Description and Files
+### Folder and File Description
 
 ```
 /archaeus
-  ├ /app                      - Application files
-  │ ├ /assets                 - Static assets
-  │ │ └ index.html            - The main HTML file
-  │ │
-  │ ├ /services               - Services
-  │ │ └ socket_service.coffee - WebSocket Adapter
-  │ │
-  │ ├ /views                  - Views
-  │ │ ├ cell_view.coffee      - Backbone Cell View
-  │ │ └ grid_view.coffee      - Backbone Grid View
-  │ │
-  │ └ app.coffee              - The main app file
+  ├ /src                             - Domain Models
+  │ ├ /effects                       - Color effects
+  │ │ ├ mix_colors.coffee
+  │ │ ├ rotate_colors.coffee
+  │ │ └ swap_colors.coffee
+  │ │ 
+  │ ├ cell.coffee
+  │ ├ grid.coffee
+  │ └ soul.coffee
   │
-  ├ /server                   - Node.JS and Socket.IO Server
-  │ └ server.coffee           - Server runner file
+  ├ /app                             - Application files
+  │ ├ /assets                        - Static assets
+  │ │ └ index.html                   - The main HTML file
+  │ │
+  │ ├ /services                      - Services
+  │ │ └ socket_service.coffee        - WebSocket Adapter
+  │ │
+  │ ├ /views                         - Backbone Views
+  │ │ ├ cell_view.coffee
+  │ │ └ grid_view.coffee
+  │ │
+  │ └ app.coffee                     - The main app file
   │
-  ├ /spec                     - Specs and Tests
-  ├ /src                      - Domain Models
-  ├ /vendor                   - Unbundled vendor libraries
-  ├ /src                      - Domain Models
-  ├ Makefile                  - Setup and Run scripts
-  ├ README.md                 - This README
-  ├ package.json              - Project package description
-  ├ bower.json                - Frontend dependencies description
-  ├ brunch-config.coffee      - Build description
-  └ karma.conf.coffee         - Test runner description
+  ├ /server
+  │ └ server.coffee                  - Node.JS and Socket.IO Server Runner
+  │
+  ├ /spec                            - Specs / Tests according to app and src files
+  │ ├ /app
+  │ │ ├ /services
+  │ │ │ └ socket_service_spec.coffee
+  │ │ │
+  │ │ ├ /views
+  │ │ │ ├ cell_view_spec.coffee
+  │ │ │ └ grid_view_spec.coffee
+  │ │ │
+  │ │ └ app_spec.coffee
+  │ │
+  │ ├ /archaeus
+  │ │ ├ /effects
+  │ │ │ └ swap_colors_spec.coffee
+  │ │ │ 
+  │ │ ├ cell_spec.coffee
+  │ │ ├ grid_spec.coffee
+  │ │ └ soul_spec.coffee
+  │ │
+  │ ├ /server
+  │ │
+  │ └ spec_helper.coffee             - Test-runner bootstrap code
+  │
+  ├ /vendor                          - Unbundled vendor libraries
+  ├ Makefile                         - Setup and Run scripts
+  ├ README.md                        - This README
+  ├ package.json                     - Project package description
+  ├ bower.json                       - Frontend dependencies description
+  ├ brunch-config.coffee             - Build description
+  └ karma.conf.coffee                - Test runner description
 ```
 
 ### Caveats and known issues
