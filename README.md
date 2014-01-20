@@ -31,7 +31,11 @@ Archaeus is a Javascript implementation, written in Coffeescript – and proudly
 - *Socket.io* to handle realtime-communication
   http://socket.io
 
-Archaeus is happy to be running on Heroku.com
+Archaeus is happy to be running on http://Heroku.com
+
+## Caveats and known issues
+
+Archaeus is currently under development. The implementation is tested only in Chrome on Mac OS X so far.
 
 ## Copyright
 
