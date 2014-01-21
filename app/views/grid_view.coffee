@@ -39,7 +39,7 @@ class GridView extends Backbone.View
     @
 
   interact: (e) ->
-    $cellEl = $(e.srcElement)
+    $cellEl = $(e.srcElement or e.currentTarget)
     x = $cellEl.data 'x'
     y = $cellEl.data 'y'
 
