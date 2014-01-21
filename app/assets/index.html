@@ -19,17 +19,74 @@
         width: 18px;
         height: 18px;
       }
+      #content-cloak {
+        z-index: 10;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: grey;
+        top: 0;
+        left: 0;
+        -moz-opacity: 0.60;
+        opacity: 0.60;
+        -ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=60);
+      }
+      #intro-overlay {
+        z-index: 20;
+        position: absolute;
+        padding: 0 25px;
+        width: 400px;
+        border: 1px solid #efefef;
+        background-color: white;
+        transform: translate(100%, 50%);
+        -webkit-transform: translate(100%, 50%);
+        -moz-transform: translate(50%, 50%);
+        -ms-transform: translate(50%, 50%);
+      }
+      #trigger {
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
+
+    <div id='intro-overlay'>
+      <h1>Archaeus</h1>
+      <p>Realtime collaborative rainbow eyecandy generator</p>
+      <p>Move the mouse to draw squares with a randomly assigned color. As another client connects, you see each others squares. Once you touch the other client's squares, you set the surrounding squares ablaze.</p>
+      <p>Source Code available at <a href='https://github.com/codepuzzle/archaeus'>github.com/codepuzzle/archaeus</a></p>
+      <p>Copyright (c) 2014 by <a href='http://www.codepuzzle.de'>Anton Mikulcic</a></p>
+      <p align='center'><button id='trigger'>Start</button></p>
+    </div>
+
     <div id='content'></div>
+
+    <div id='content-cloak'></div>
+
     <script type="text/javascript" src="js/vendor.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
+
     <script>
-      var CLIENT_ENV = /herokuapp/.test(location.hostname) ? 'production' : 'development';
-      var App = require('app/app');
-      var app = new App();
-      app.run();
+      require('zepto');
+
+      Zepto(function($) {
+
+        // initialize introduction overlay
+        $('#trigger').click(function() {
+          $('#intro-overlay').hide()
+          $('#content-cloak').hide()
+        });
+
+        // initialize archaeus app
+        setTimeout(function() {
+          var CLIENT_ENV = /herokuapp/.test(location.hostname) ? 'production' : 'development';
+          var App = require('app/app');
+          var app = new App();
+          app.run();
+        }, 1);
+
+      });
     </script>
+
   </body>
 </html>
