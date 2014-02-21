@@ -8,7 +8,7 @@ describe 'App', ->
   SocketService = null
 
   before ->
-    GridView = require '../../app/views/grid_view'
+    GridView = require '../../app/views/canvas/grid_view'
     sinon.stub GridView.prototype, 'render', ->
 
     Grid = require '../../src/archaeus/grid'

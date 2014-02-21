@@ -1,7 +1,11 @@
 Soul     = require 'src/archaeus/soul'
 Grid     = require 'src/archaeus/grid'
 
-GridView      = require 'app/views/grid_view'
+GridView = require 'app/views/canvas/grid_view'
+
+# Uncomment to use a dom-based Backbone GridView
+# GridView = require 'app/views/grid_view'
+
 SocketService = require 'app/services/socket_service'
 
 class App
