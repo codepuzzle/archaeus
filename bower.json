@@ -2,6 +2,7 @@
   "name": "archaeus",
   "version": "0.0.0",
   "dependencies": {
+    "commonjs-require-definition": "*",
     "zepto": "*",
     "underscore": "*",
     "socket.io-client": "~0.9.16"
