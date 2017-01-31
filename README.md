@@ -31,7 +31,7 @@ Archaeus is a Javascript implementation, written in Coffeescript – and proudly
 - *Socket.io* to handle realtime-communication
   http://socket.io
 - *Mocha.js* Test Framework
-  http://visionmedia.github.io/mocha
+  http://mochajs.org/
 - *Karma* Test runner
   http://karma-runner.github.io
 
